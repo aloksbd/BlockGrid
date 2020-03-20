@@ -111,6 +111,6 @@ class Piece{
     }
 
     randomTypeId(){
-        return Math.floor(Math.random() * (COLORS.length - 1) + 1);
+        return Math.floor(Math.random() * (COLORS.length - 2) + 1);
     }
 }
