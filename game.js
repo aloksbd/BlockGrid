@@ -2,6 +2,8 @@ let board = new Board(ctx);
 
 let spawnBoard = new SpawnBoard(ctx);
 
+let scoreBoard = new ScoreBoard(ctx);
+
 let piece = new Piece(ctx);
 
 let currentPiece = new Piece(ctx);
@@ -9,6 +11,7 @@ currentPiece.makeCurrent();
 
 function draw(){
     drawCanvas();
+    scoreBoard.draw();
     board.draw();
     spawnBoard.draw();
     piece.draw();

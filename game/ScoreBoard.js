@@ -1,9 +1,9 @@
-class SpawnBoard{
+class ScoreBoard{
     ctx;
     x = 0;
-    y = 550;
+    y = 0;
     width = 450;
-    height = 120;
+    height = 100;
 
     constructor(ctx){
         this.ctx = ctx;
