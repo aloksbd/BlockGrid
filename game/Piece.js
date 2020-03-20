@@ -15,6 +15,18 @@ class Piece{
         this.setup();
     }
 
+    score(){
+        let blockCount = 0;
+        for (var i = 0; i < this.shape.length; i++ ){
+            for (var j = 0; j < this.shape[0].length; j++){
+                if (this.shape[i][j] != 0){
+                    blockCount++;
+                }
+            }
+        }
+        return blockCount;
+    }
+
     width(){
         return (this.shape[0].length * this.boxSize)
     }

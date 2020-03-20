@@ -38,6 +38,7 @@ document.onmouseup = function (mouse) {
         board.placePiece(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);
         currentPiece.drop();
         if (board.canPlace){
+            scoreBoard.score += currentPiece.score();
             currentPiece = piece;
             currentPiece.makeCurrent();
             piece = new Piece(ctx);
