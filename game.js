@@ -29,8 +29,13 @@ document.onmousedown = function(mouse){
 }
 
 document.onmouseup = function (mouse) {
-    currentPiece.drop();
-    draw();
+    if (currentPiece.isPicked){
+        var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
+        var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
+        board.placePiece(currentPiece.shape,mouseX,mouseY);
+        currentPiece.drop();
+        draw();
+    }
 }
 
 document.onmousemove = function (mouse) {
