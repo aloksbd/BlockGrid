@@ -77,11 +77,13 @@ class Board{
                     }
                 }
             }
-            this.checkRowColumnMatch(shape,x,y);
+            return this.checkRowColumnMatch(shape,x,y);
         }
+        return 0;
     }
 
     checkRowColumnMatch(shape,x,y){
+        var matchedCount = 0
         for (var i = 0; i < shape.length; i++ ){
             var match = true;
             let weigthedGrid = [];
@@ -98,6 +100,7 @@ class Board{
             }
             if (match){
                 this.boxRow = weigthedGrid.slice();
+                matchedCount++;
             }
         }
 
@@ -119,7 +122,9 @@ class Board{
             }
             if (match){
                 this.boxRow = weigthedGrid.slice();
+                matchedCount++;
             }
         }
+        return matchedCount;
     }
 }

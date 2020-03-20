@@ -35,7 +35,9 @@ document.onmouseup = function (mouse) {
     if (currentPiece.isPicked){
         var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
         var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
-        board.placePiece(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);
+        let matchedCount = board.placePiece(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);
+        scoreBoard.score += matchedCount * 9;
+        console.log(matchedCount);
         currentPiece.drop();
         if (board.canPlace){
             scoreBoard.score += currentPiece.score();
