@@ -7,16 +7,19 @@ class Board{
     boxSize = 50;
     boxRow = [];
     canPlace = false;
+    wall;
 
-    constructor(ctx) {
+    constructor(ctx,grid,wall) {
         this.ctx = ctx;
-        for (var i = 0; i < this.row; i++ ){
-            var boxColumn = [];
-            for (var j = 0; j < this.column; j++){
-                boxColumn[j] = 0;  //state: 0 = closed, 1 = opened, 2 = marked
-            }
-            this.boxRow[i] = boxColumn;
-        }
+        this.setGrid(grid);
+        this.wall = wall;
+    }
+
+    setGrid(grid){
+        this.boxRow = [];
+        grid.forEach(row => {
+            this.boxRow.push(row.slice());
+        });
     }
 
     draw(){
@@ -86,6 +89,7 @@ class Board{
         var matchedCount = 0
         for (var i = 0; i < shape.length; i++ ){
             var match = true;
+            let walls = 0;
             let weigthedGrid = [];
             this.boxRow.forEach(row => {
                 weigthedGrid.push(row.slice());
@@ -96,16 +100,21 @@ class Board{
                     match = false;
                     break;
                 }
+                if (this.boxRow[i+y][j] == 9){
+                    walls++;
+                }
                 weigthedGrid[i+y][j] = 0
             }
             if (match){
                 this.boxRow = weigthedGrid.slice();
+                this.wall -= walls;
                 matchedCount++;
             }
         }
 
         for (var j = 0; j < shape[0].length; j++){
             var match = true;
+            let walls = 0;
             let weigthedGrid = [];
             this.boxRow.forEach(row => {
                 weigthedGrid.push(row.slice());
@@ -118,10 +127,14 @@ class Board{
                     match = false;
                     break;
                 }
+                if (this.boxRow[i][j+x] == 9){
+                    walls++;
+                }
                 weigthedGrid[i][j+x] = 0
             }
             if (match){
                 this.boxRow = weigthedGrid.slice();
+                this.wall -= walls;
                 matchedCount++;
             }
         }

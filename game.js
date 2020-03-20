@@ -1,8 +1,8 @@
-let board = new Board(ctx);
+let scoreBoard = new ScoreBoard(ctx);
+
+let board = new Board(ctx,LEVELGRID[scoreBoard.level],NUMBEROFWALLS[scoreBoard.level]);
 
 let spawnBoard = new SpawnBoard(ctx);
-
-let scoreBoard = new ScoreBoard(ctx);
 
 let piece = new Piece(ctx);
 
@@ -37,7 +37,12 @@ document.onmouseup = function (mouse) {
         var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
         let matchedCount = board.placePiece(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);
         scoreBoard.score += matchedCount * 9;
-        console.log(matchedCount);
+        if (board.wall == 0){
+            scoreBoard.score += NUMBEROFWALLS[scoreBoard.level] * 5;
+            scoreBoard.level++;
+            board.wall = NUMBEROFWALLS[scoreBoard.level];
+            board.setGrid(LEVELGRID[scoreBoard.level]);
+        }
         currentPiece.drop();
         if (board.canPlace){
             scoreBoard.score += currentPiece.score();
@@ -45,6 +50,7 @@ document.onmouseup = function (mouse) {
             currentPiece.makeCurrent();
             piece = new Piece(ctx);
         }
+        console.log(board)
         draw();
     }
 }
