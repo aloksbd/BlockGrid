@@ -38,8 +38,9 @@ class Board{
     checkPlacebale(shape,mouseX,mouseY){
         var x = Math.floor(mouseX/this.boxSize);
         var y = Math.floor(mouseY/this.boxSize);
-        var place = true;
-        if (x >= 0 && y >= 0 &&x + shape[0].length <= this.row && y + shape.length <= this.column){
+        var place = false;
+        if (x >= 0 && y >= 0 && x + shape[0].length <= this.row && y + shape.length <= this.column){
+            place = true;
             for (var i = 0; i < shape.length; i++ ){
                 for (var j = 0; j < shape[0].length; j++){
                     if (shape[i][j] * this.boxRow[i+y][j+x] != 0){
@@ -75,6 +76,49 @@ class Board{
                         this.boxRow[i+y][j+x] = shape[i][j];
                     }
                 }
+            }
+            this.checkRowColumnMatch(shape,x,y);
+        }
+    }
+
+    checkRowColumnMatch(shape,x,y){
+        for (var i = 0; i < shape.length; i++ ){
+            var match = true;
+            let weigthedGrid = [];
+            this.boxRow.forEach(row => {
+                weigthedGrid.push(row.slice());
+            });
+            for (var j = 0; j < this.column; j++){
+                // console.log(i,j,y,this.boxRow[i+y][j]);
+                if (this.boxRow[i+y][j] == 0){
+                    match = false;
+                    break;
+                }
+                weigthedGrid[i+y][j] = 0
+            }
+            if (match){
+                this.boxRow = weigthedGrid.slice();
+            }
+        }
+
+        for (var j = 0; j < shape[0].length; j++){
+            var match = true;
+            let weigthedGrid = [];
+            this.boxRow.forEach(row => {
+                weigthedGrid.push(row.slice());
+            });
+                // weigthedGrid.push(arrSrc[elm].slice());
+            // let weigthedGrid = this.boxRow.slice();
+            for (var i = 0; i < this.row; i++ ){
+                // console.log(i,j,x,this.boxRow[i][j+x]);
+                if (this.boxRow[i][j+x] == 0){
+                    match = false;
+                    break;
+                }
+                weigthedGrid[i][j+x] = 0
+            }
+            if (match){
+                this.boxRow = weigthedGrid.slice();
             }
         }
     }
