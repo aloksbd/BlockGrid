@@ -6,6 +6,7 @@ class Piece{
     ctx;
     typeId;
     boxSize = 10;
+    next = true;
     current = false;
     isPicked = false;
 
@@ -50,6 +51,9 @@ class Piece{
     }
 
     draw() {
+        if (this.next){
+            this.drawBgBox();
+        }
         this.ctx.fillStyle = this.color;
         this.ctx.strokeStyle = "#dddddd";
         this.shape.forEach((row, y) => {
@@ -62,10 +66,18 @@ class Piece{
         });
     }
 
+    drawBgBox(){
+        this.ctx.fillStyle = "#000000";
+        this.ctx.globalAlpha = 0.3;
+        this.ctx.fillRect(42,470,80,80);
+        this.ctx.globalAlpha = 1;
+    }
+
     makeCurrent(){
         this.boxSize = 25;
         this.x = 287 - Math.floor(this.width() / 2);
         this.y = 450 + 60 - Math.floor(this.height() / 2);
+        this.next = false;
     }
 
     picked(mouseX,mouseY){
