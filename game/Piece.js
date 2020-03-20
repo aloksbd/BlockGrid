@@ -7,10 +7,19 @@ class Piece{
     typeId;
     boxSize = 10;
     current = false;
+    isPicked = false;
 
     constructor(ctx) {
         this.ctx = ctx;
         this.setup();
+    }
+
+    width(){
+        return (this.shape[0].length * this.boxSize)
+    }
+
+    height(){
+        return (this.shape.length * this.boxSize)
     }
 
     setup() {
@@ -18,8 +27,8 @@ class Piece{
         this.shape = SHAPES[this.typeId];
         this.color = COLORS[this.typeId];
         this.setRotation();
-        this.x = 82 - Math.floor((this.shape[0].length * this.boxSize) / 2);
-        this.y = 450 + 60 - Math.floor((this.shape.length * this.boxSize) / 2);
+        this.x = 82 - Math.floor(this.width() / 2);
+        this.y = 450 + 60 - Math.floor(this.height() / 2);
     }
 
     setRotation(){
@@ -55,8 +64,20 @@ class Piece{
 
     makeCurrent(){
         this.boxSize = 25;
-        this.x = 287 - Math.floor((this.shape[0].length * this.boxSize) / 2);
-        this.y = 450 + 60 - Math.floor((this.shape.length * this.boxSize) / 2);
+        this.x = 287 - Math.floor(this.width() / 2);
+        this.y = 450 + 60 - Math.floor(this.height() / 2);
+    }
+
+    picked(mouseX,mouseY){
+        this.boxSize = 50;
+        this.x = mouseX - this.width()/2;
+        this.y = mouseY - this.height()/2;
+        this.isPicked = true;
+    }
+
+    drop(){
+        this.isPicked = false;
+        this.makeCurrent();
     }
 
     randomTypeId(){
