@@ -1,15 +1,66 @@
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext("2d");
+let scoreBoard = new ScoreBoard(ctx);
 
-let width = window.innerWidth;
-let height = window.innerHeight;
-canvas.width = width;
-canvas.height = height;
-ctx.fillStyle = "#44dd99";
-ctx.fillRect(0,0,width,height);
-document.body.style.margin = 0;
-document.body.style.padding = 0;
-// document.body.scrollTop = 0;
-document.body.style.overflow = 'hidden';
+let board = new Board(ctx,LEVELGRID[scoreBoard.level],NUMBEROFWALLS[scoreBoard.level]);
 
+let spawnBoard = new SpawnBoard(ctx);
 
+let piece = new Piece(ctx);
+
+let currentPiece = new Piece(ctx);
+currentPiece.makeCurrent();
+
+function draw(){
+    drawCanvas();
+    scoreBoard.draw();
+    board.draw();
+    spawnBoard.draw();
+    piece.draw();
+    currentPiece.draw();
+}
+draw();
+
+document.onmousedown = function(mouse){
+    var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
+    var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
+    if (mouseX > currentPiece.x && 
+        mouseX < currentPiece.x + currentPiece.width() && 
+        mouseY > currentPiece.y && 
+        mouseY < currentPiece.y + currentPiece.height()){
+            currentPiece.picked(mouseX,mouseY);
+            currentPiece.draw();
+    }
+}
+
+document.onmouseup = function (mouse) {
+    if (currentPiece.isPicked){
+        var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
+        var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
+        let matchedCount = board.placePiece(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);
+        scoreBoard.score += matchedCount * 9;
+        if (board.wall == 0){
+            scoreBoard.score += NUMBEROFWALLS[scoreBoard.level % NUMBEROFWALLS.length] * 5;
+            scoreBoard.level++;
+            board.wall = NUMBEROFWALLS[scoreBoard.level % NUMBEROFWALLS.length];
+            board.setGrid(LEVELGRID[scoreBoard.level % NUMBEROFWALLS.length]);
+        }
+        currentPiece.drop();
+        if (board.canPlace){
+            scoreBoard.score += currentPiece.score();
+            currentPiece = piece;
+            currentPiece.makeCurrent();
+            piece = new Piece(ctx);
+        }
+        console.log(board)
+        draw();
+    }
+}
+
+document.onmousemove = function (mouse) {
+    if (currentPiece.isPicked){
+        var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
+        var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
+        currentPiece.picked(mouseX,mouseY);
+        draw();
+        board.checkPlacebale(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);
+    }
+}
