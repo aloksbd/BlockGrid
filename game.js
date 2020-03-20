@@ -32,8 +32,13 @@ document.onmouseup = function (mouse) {
     if (currentPiece.isPicked){
         var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
         var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
-        board.placePiece(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);;
+        board.placePiece(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);
         currentPiece.drop();
+        if (board.canPlace){
+            currentPiece = piece;
+            currentPiece.makeCurrent();
+            piece = new Piece(ctx);
+        }
         draw();
     }
 }
