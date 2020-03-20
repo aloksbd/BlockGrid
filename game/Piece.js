@@ -56,6 +56,9 @@ class Piece{
         }
         this.ctx.fillStyle = this.color;
         this.ctx.strokeStyle = "#dddddd";
+        if(this.isPicked){
+            this.ctx.globalAlpha = 0.5;
+        }
         this.shape.forEach((row, y) => {
             row.forEach((value, x) => {
                 if (value > 0) {
@@ -64,6 +67,9 @@ class Piece{
                 }
             });
         });
+        if(this.isPicked){
+            this.ctx.globalAlpha = 1;
+        }
     }
 
     drawBgBox(){

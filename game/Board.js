@@ -4,6 +4,7 @@ class Board{
     column = 9;
     boxSize = 50;
     boxRow = [];
+    canPlace = false;
 
     constructor(ctx) {
         this.ctx = ctx;
@@ -34,11 +35,11 @@ class Board{
         }
     }
 
-    placePiece(shape,mouseX,mouseY){
+    checkPlacebale(shape,mouseX,mouseY){
         var x = Math.floor(mouseX/this.boxSize);
         var y = Math.floor(mouseY/this.boxSize);
         var place = true;
-        if (x + shape[0].length <= this.row && y + shape.length <= this.column){
+        if (x >= 0 && y >= 0 &&x + shape[0].length <= this.row && y + shape.length <= this.column){
             for (var i = 0; i < shape.length; i++ ){
                 for (var j = 0; j < shape[0].length; j++){
                     if (shape[i][j] * this.boxRow[i+y][j+x] != 0){
@@ -50,12 +51,31 @@ class Board{
                 for (var i = 0; i < shape.length; i++ ){
                     for (var j = 0; j < shape[0].length; j++){
                         if (shape[i][j] != 0){
-                            this.boxRow[i+y][j+x] = shape[i][j];
+                            this.ctx.globalAlpha = 0.2;
+                            this.ctx.fillStyle = "#ffffff";
+                            this.ctx.fillRect((j+x) * (this.boxSize),(i+y) * (this.boxSize),this.boxSize,this.boxSize);
+                            this.ctx.globalAlpha = 1;
+                            this.ctx.strokeStyle = "#ffffff";
+                            this.ctx.strokeRect((j+x) * (this.boxSize),((i+y)) * (this.boxSize),this.boxSize,this.boxSize);
                         }
                     }
                 }
             }
         }
-        console.log(this.boxRow);
+        this.canPlace = place;
+    }
+
+    placePiece(shape,mouseX,mouseY){
+        var x = Math.floor(mouseX/this.boxSize);
+        var y = Math.floor(mouseY/this.boxSize);
+        if (this.canPlace){
+            for (var i = 0; i < shape.length; i++ ){
+                for (var j = 0; j < shape[0].length; j++){
+                    if (shape[i][j] != 0){
+                        this.boxRow[i+y][j+x] = shape[i][j];
+                    }
+                }
+            }
+        }
     }
 }

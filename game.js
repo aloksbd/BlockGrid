@@ -32,7 +32,7 @@ document.onmouseup = function (mouse) {
     if (currentPiece.isPicked){
         var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
         var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
-        board.placePiece(currentPiece.shape,mouseX,mouseY);
+        board.placePiece(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);;
         currentPiece.drop();
         draw();
     }
@@ -44,5 +44,6 @@ document.onmousemove = function (mouse) {
         var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
         currentPiece.picked(mouseX,mouseY);
         draw();
+        board.checkPlacebale(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);
     }
 }
