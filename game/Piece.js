@@ -24,21 +24,19 @@ class Piece{
     setRotation(){
         let rotateTime = Math.floor(Math.random() * 4);
         for (let i = 0; i <= rotateTime; i++){
-            this.rotate();
+            this.rotateLeft();
         }
     }
 
-    rotate() {
-        // Transpose matrix
-        for (let y = 0; y < this.shape.length; ++y) {
-          for (let x = 0; x < y; ++x) {
-            [this.shape[x][y], this.shape[y][x]] = [this.shape[y][x], this.shape[x][y]];
-          }
-        }
-    
-        // Reverse the order of the columns.
-        this.shape.forEach(row => row.reverse());
-        return this;
+    rotateLeft(array) {
+        var result = [];
+        this.shape.forEach(function (a, i, aa) {
+            a.forEach(function (b, j, bb) {
+                result[j] = result[j] || [];
+                result[j][aa.length - i - 1] = b;
+            });
+        });
+        this.shape = result;
     }
 
     draw() {
