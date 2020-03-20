@@ -1,5 +1,7 @@
 class Board{
     ctx;
+    x = 0;
+    y = 100;
     row = 9;
     column = 9;
     boxSize = 50;
@@ -22,22 +24,20 @@ class Board{
             for (var j = 0; j < this.column; j++){
                 if (this.boxRow[i][j] == 0){
                     this.ctx.fillStyle = "#777777";
-                    this.ctx.fillRect(j * (this.boxSize),i * (this.boxSize),this.boxSize,this.boxSize);
                     this.ctx.strokeStyle = "#222222";
-                    this.ctx.strokeRect(j * (this.boxSize),i * (this.boxSize),this.boxSize,this.boxSize);
                 }else{
-                    this.ctx.fillStyle = COLORS[this.boxRow[i][j]];;
-                    this.ctx.fillRect(j * (this.boxSize),i * (this.boxSize),this.boxSize,this.boxSize);
+                    this.ctx.fillStyle = COLORS[this.boxRow[i][j]];
                     this.ctx.strokeStyle = "#dddddd";
-                    this.ctx.strokeRect(j * (this.boxSize),i * (this.boxSize),this.boxSize,this.boxSize);
                 }
+                this.ctx.fillRect(j * (this.boxSize) + this.x,i * (this.boxSize) + this.y,this.boxSize,this.boxSize);
+                this.ctx.strokeRect(j * (this.boxSize) + this.x,i * (this.boxSize) + this.y,this.boxSize,this.boxSize);
             }
         }
     }
 
     checkPlacebale(shape,mouseX,mouseY){
         var x = Math.floor(mouseX/this.boxSize);
-        var y = Math.floor(mouseY/this.boxSize);
+        var y = Math.floor(mouseY/this.boxSize)-2;
         var place = false;
         if (x >= 0 && y >= 0 && x + shape[0].length <= this.row && y + shape.length <= this.column){
             place = true;
@@ -54,10 +54,10 @@ class Board{
                         if (shape[i][j] != 0){
                             this.ctx.globalAlpha = 0.2;
                             this.ctx.fillStyle = "#ffffff";
-                            this.ctx.fillRect((j+x) * (this.boxSize),(i+y) * (this.boxSize),this.boxSize,this.boxSize);
+                            this.ctx.fillRect((j+x) * (this.boxSize),(i+y+2) * (this.boxSize),this.boxSize,this.boxSize);
                             this.ctx.globalAlpha = 1;
                             this.ctx.strokeStyle = "#ffffff";
-                            this.ctx.strokeRect((j+x) * (this.boxSize),((i+y)) * (this.boxSize),this.boxSize,this.boxSize);
+                            this.ctx.strokeRect((j+x) * (this.boxSize),((i+y+2)) * (this.boxSize),this.boxSize,this.boxSize);
                         }
                     }
                 }
@@ -68,7 +68,7 @@ class Board{
 
     placePiece(shape,mouseX,mouseY){
         var x = Math.floor(mouseX/this.boxSize);
-        var y = Math.floor(mouseY/this.boxSize);
+        var y = Math.floor(mouseY/this.boxSize)-2;
         if (this.canPlace){
             for (var i = 0; i < shape.length; i++ ){
                 for (var j = 0; j < shape[0].length; j++){
@@ -77,11 +77,13 @@ class Board{
                     }
                 }
             }
-            this.checkRowColumnMatch(shape,x,y);
+            return this.checkRowColumnMatch(shape,x,y);
         }
+        return 0;
     }
 
     checkRowColumnMatch(shape,x,y){
+        var matchedCount = 0
         for (var i = 0; i < shape.length; i++ ){
             var match = true;
             let weigthedGrid = [];
@@ -98,6 +100,7 @@ class Board{
             }
             if (match){
                 this.boxRow = weigthedGrid.slice();
+                matchedCount++;
             }
         }
 
@@ -119,7 +122,9 @@ class Board{
             }
             if (match){
                 this.boxRow = weigthedGrid.slice();
+                matchedCount++;
             }
         }
+        return matchedCount;
     }
 }

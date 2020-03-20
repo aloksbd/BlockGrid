@@ -15,6 +15,18 @@ class Piece{
         this.setup();
     }
 
+    score(){
+        let blockCount = 0;
+        for (var i = 0; i < this.shape.length; i++ ){
+            for (var j = 0; j < this.shape[0].length; j++){
+                if (this.shape[i][j] != 0){
+                    blockCount++;
+                }
+            }
+        }
+        return blockCount;
+    }
+
     width(){
         return (this.shape[0].length * this.boxSize)
     }
@@ -29,7 +41,7 @@ class Piece{
         this.color = COLORS[this.typeId];
         this.setRotation();
         this.x = 82 - Math.floor(this.width() / 2);
-        this.y = 450 + 60 - Math.floor(this.height() / 2);
+        this.y = 550 + 60 - Math.floor(this.height() / 2);
     }
 
     setRotation(){
@@ -75,14 +87,14 @@ class Piece{
     drawBgBox(){
         this.ctx.fillStyle = "#000000";
         this.ctx.globalAlpha = 0.3;
-        this.ctx.fillRect(42,470,80,80);
+        this.ctx.fillRect(42,570,80,80);
         this.ctx.globalAlpha = 1;
     }
 
     makeCurrent(){
         this.boxSize = 25;
         this.x = 287 - Math.floor(this.width() / 2);
-        this.y = 450 + 60 - Math.floor(this.height() / 2);
+        this.y = 550 + 60 - Math.floor(this.height() / 2);
         this.next = false;
     }
 

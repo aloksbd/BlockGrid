@@ -1,7 +1,7 @@
 class SpawnBoard{
     ctx;
     x = 0;
-    y = 450;
+    y = 550;
     width = 450;
     height = 120;
 
