@@ -5,7 +5,8 @@ class Piece{
     shape;
     ctx;
     typeId;
-    boxSize = 50;
+    boxSize = 10;
+    current = false;
 
     constructor(ctx) {
         this.ctx = ctx;
@@ -16,9 +17,9 @@ class Piece{
         this.typeId = this.randomTypeId();
         this.shape = SHAPES[this.typeId];
         this.color = COLORS[this.typeId];
-        this.x = 0;
-        this.y = 0;
         this.setRotation();
+        this.x = 82 - Math.floor((this.shape[0].length * this.boxSize) / 2);
+        this.y = 450 + 60 - Math.floor((this.shape.length * this.boxSize) / 2);
     }
 
     setRotation(){
@@ -45,11 +46,17 @@ class Piece{
         this.shape.forEach((row, y) => {
             row.forEach((value, x) => {
                 if (value > 0) {
-                this.ctx.fillRect((this.x + x) * this.boxSize, (this.y + y) * this.boxSize, this.boxSize, this.boxSize);
-                this.ctx.strokeRect((this.x + x) * this.boxSize, (this.y + y) * this.boxSize, this.boxSize, this.boxSize);
+                this.ctx.fillRect(this.x + x * this.boxSize, this.y + y * this.boxSize, this.boxSize, this.boxSize);
+                this.ctx.strokeRect(this.x + x * this.boxSize, this.y + y * this.boxSize, this.boxSize, this.boxSize);
                 }
             });
         });
+    }
+
+    makeCurrent(){
+        this.boxSize = 25;
+        this.x = 287 - Math.floor((this.shape[0].length * this.boxSize) / 2);
+        this.y = 450 + 60 - Math.floor((this.shape.length * this.boxSize) / 2);
     }
 
     randomTypeId(){

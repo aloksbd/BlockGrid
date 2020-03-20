@@ -9,3 +9,6 @@ spawnBoard.draw();
 let piece = new Piece(ctx);
 piece.draw();
 
+let currentPiece = new Piece(ctx);
+currentPiece.makeCurrent();
+currentPiece.draw();

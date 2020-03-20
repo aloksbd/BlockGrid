@@ -3,7 +3,7 @@ class SpawnBoard{
     x = 0;
     y = 450;
     width = 450;
-    height = 150;
+    height = 120;
 
     constructor(ctx){
         this.ctx = ctx;
