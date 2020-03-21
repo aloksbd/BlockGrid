@@ -35,7 +35,7 @@ document.onmouseup = function (mouse) {
     if (currentPiece.isPicked){
         var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
         var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
-        let matchedCount = board.placePiece(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);
+        let matchedCount = board.placePiece(currentPiece.shape,mouseX-currentPiece.width()/2+currentPiece.boxSize/2,mouseY-currentPiece.height()/2+currentPiece.boxSize/2);
         scoreBoard.score += matchedCount;
         if (board.wall == 0){
             scoreBoard.score += scoreBoard.level * 5;
@@ -60,6 +60,6 @@ document.onmousemove = function (mouse) {
         var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
         currentPiece.picked(mouseX,mouseY);
         draw();
-        board.checkPlacebale(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);
+        board.checkPlacebale(currentPiece.shape,mouseX-currentPiece.width()/2+currentPiece.boxSize/2,mouseY-currentPiece.height()/2+currentPiece.boxSize/2);
     }
 }
