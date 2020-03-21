@@ -8,7 +8,7 @@ const COLORS = [
     'purple',
     'red',
     'magenta',
-    'olive'
+    'black'
   ];
   Object.freeze(COLORS);
   
@@ -24,11 +24,6 @@ const COLORS = [
     [[8]]
   ];
   Object.freeze(SHAPES);
-
-  const NUMBEROFWALLS = [
-      1,4,5,
-  ]
-  Object.freeze(NUMBEROFWALLS);
 
   const LEVELGRID = [
     [[0, 0, 0, 0, 0, 0, 0, 0, 0],
