@@ -158,4 +158,27 @@ class Board{
         }
         return matchedCount;
     }
+    
+    canPlaceCurrentPiece(shape){
+        for (var y = 0; y <= this.row-shape.length; y++){
+            for (var x = 0; x <= this.column-shape[0].length; x++){
+                let canPlace = true;
+                for (var i = 0; i < shape.length; i++ ){
+                    for (var j = 0; j < shape[0].length; j++){
+                        if (shape[i][j] * this.boxRow[i+y][j+x] != 0){
+                            canPlace = false;
+                            break;
+                        }
+                    }
+                    if (!canPlace){
+                        break;
+                    }
+                }
+                if (canPlace){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

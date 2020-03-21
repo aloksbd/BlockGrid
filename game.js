@@ -9,13 +9,17 @@ let piece = new Piece(ctx);
 let currentPiece = new Piece(ctx);
 currentPiece.makeCurrent();
 
+let gameover = false;
+
 function draw(){
-    drawCanvas();
-    scoreBoard.draw();
-    board.draw();
-    spawnBoard.draw();
-    piece.draw();
-    currentPiece.draw();
+    if (!gameover){
+        drawCanvas();
+        scoreBoard.draw();
+        board.draw();
+        spawnBoard.draw();
+        piece.draw();
+        currentPiece.draw();
+    }
 }
 draw();
 
@@ -27,7 +31,6 @@ document.onmousedown = function(mouse){
         mouseY > currentPiece.y && 
         mouseY < currentPiece.y + currentPiece.height()){
             currentPiece.picked(mouseX,mouseY);
-            currentPiece.draw();
     }
 }
 
@@ -47,9 +50,13 @@ document.onmouseup = function (mouse) {
             scoreBoard.score += currentPiece.score();
             currentPiece = piece;
             currentPiece.makeCurrent();
+            draw();
+            gameover = !board.canPlaceCurrentPiece(currentPiece.shape);
+            if (gameover){
+                console.log("GAMEOVER");
+            }
             piece = new Piece(ctx);
         }
-        console.log(board)
         draw();
     }
 }
