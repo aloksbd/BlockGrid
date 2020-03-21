@@ -108,7 +108,7 @@ class Board{
             if (match){
                 this.boxRow = weigthedGrid.slice();
                 this.wall -= walls;
-                matchedCount++;
+                matchedCount+=9;
             }
         }
 
@@ -135,7 +135,16 @@ class Board{
             if (match){
                 this.boxRow = weigthedGrid.slice();
                 this.wall -= walls;
-                matchedCount++;
+                matchedCount+=9;
+            }
+        }
+        if (this.wall == 0){
+            for (var i = 0; i < this.row; i++ ){
+                for (var j = 0; j < this.column; j++){
+                    if (this.boxRow[i][j] != 0){
+                        matchedCount++;
+                    }
+                }
             }
         }
         return matchedCount;
