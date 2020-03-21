@@ -25,11 +25,6 @@ const COLORS = [
   ];
   Object.freeze(SHAPES);
 
-  const NUMBEROFWALLS = [
-      1,4,5,
-  ]
-  Object.freeze(NUMBEROFWALLS);
-
   const LEVELGRID = [
     [[0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],

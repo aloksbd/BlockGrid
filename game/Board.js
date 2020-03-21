@@ -9,14 +9,23 @@ class Board{
     canPlace = false;
     wall;
 
-    constructor(ctx,grid,wall) {
+    constructor(ctx,grid) {
         this.ctx = ctx;
         this.setGrid(grid);
-        this.wall = wall;
     }
 
     setGrid(grid){
         this.boxRow = [];
+        this.wall = 0;
+        for (var i = 0; i < this.row; i++ ){
+            let boxColumn = [];
+            for (var j = 0; j < this.column; j++){
+                boxColumn.push(grid[i][j]);
+                if (grid[i][j] != 0){
+                    this.wall++;
+                }
+            }
+        }
         grid.forEach(row => {
             this.boxRow.push(row.slice());
         });
