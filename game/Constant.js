@@ -8,7 +8,7 @@ const COLORS = [
     'purple',
     'red',
     'magenta',
-    'olive'
+    'black'
   ];
   Object.freeze(COLORS);
   
