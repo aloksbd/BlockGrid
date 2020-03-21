@@ -5,7 +5,7 @@ class ScoreBoard{
     width = 450;
     height = 100;
     score = 0;
-    level = 0;
+    level = 1;
 
     constructor(ctx){
         this.ctx = ctx;

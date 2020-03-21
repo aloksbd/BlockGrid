@@ -1,6 +1,6 @@
 let scoreBoard = new ScoreBoard(ctx);
 
-let board = new Board(ctx,LEVELGRID[scoreBoard.level]);
+let board = new Board(ctx,LEVELGRID[scoreBoard.level-1]);
 
 let spawnBoard = new SpawnBoard(ctx);
 
@@ -40,7 +40,7 @@ document.onmouseup = function (mouse) {
         if (board.wall == 0){
             scoreBoard.score += scoreBoard.level * 5;
             scoreBoard.level++;
-            board.setGrid(LEVELGRID[scoreBoard.level % LEVELGRID.length]);
+            board.setGrid(LEVELGRID[(scoreBoard.level-1) % LEVELGRID.length]);
         }
         currentPiece.drop();
         if (board.canPlace){
