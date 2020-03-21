@@ -38,10 +38,10 @@ document.onmouseup = function (mouse) {
         let matchedCount = board.placePiece(currentPiece.shape,mouseX-currentPiece.width()/2,mouseY-currentPiece.height()/2);
         scoreBoard.score += matchedCount * 9;
         if (board.wall == 0){
-            scoreBoard.score += NUMBEROFWALLS[scoreBoard.level] * 5;
+            scoreBoard.score += NUMBEROFWALLS[scoreBoard.level % NUMBEROFWALLS.length] * 5;
             scoreBoard.level++;
-            board.wall = NUMBEROFWALLS[scoreBoard.level];
-            board.setGrid(LEVELGRID[scoreBoard.level]);
+            board.wall = NUMBEROFWALLS[scoreBoard.level % NUMBEROFWALLS.length];
+            board.setGrid(LEVELGRID[scoreBoard.level % NUMBEROFWALLS.length]);
         }
         currentPiece.drop();
         if (board.canPlace){
