@@ -98,16 +98,13 @@ class Board{
     }
 
     checkRowColumnMatch(shape,x,y){
-        var matchedCount = 0
+        var matchedCount = 0;
+        var row = [];
+        var column = [];
         for (var i = 0; i < shape.length; i++ ){
             var match = true;
             let walls = 0;
-            let weigthedGrid = [];
-            this.boxRow.forEach(row => {
-                weigthedGrid.push(row.slice());
-            });
             for (var j = 0; j < this.column; j++){
-                // console.log(i,j,y,this.boxRow[i+y][j]);
                 if (this.boxRow[i+y][j] == 0){
                     match = false;
                     break;
@@ -115,10 +112,9 @@ class Board{
                 if (this.boxRow[i+y][j] == 9){
                     walls++;
                 }
-                weigthedGrid[i+y][j] = 0
             }
             if (match){
-                this.boxRow = weigthedGrid.slice();
+                row.push(i+y);
                 this.wall -= walls;
                 matchedCount+=9;
             }
@@ -127,14 +123,7 @@ class Board{
         for (var j = 0; j < shape[0].length; j++){
             var match = true;
             let walls = 0;
-            let weigthedGrid = [];
-            this.boxRow.forEach(row => {
-                weigthedGrid.push(row.slice());
-            });
-                // weigthedGrid.push(arrSrc[elm].slice());
-            // let weigthedGrid = this.boxRow.slice();
             for (var i = 0; i < this.row; i++ ){
-                // console.log(i,j,x,this.boxRow[i][j+x]);
                 if (this.boxRow[i][j+x] == 0){
                     match = false;
                     break;
@@ -142,14 +131,24 @@ class Board{
                 if (this.boxRow[i][j+x] == 9){
                     walls++;
                 }
-                weigthedGrid[i][j+x] = 0
             }
             if (match){
-                this.boxRow = weigthedGrid.slice();
+                column.push(j+x);
                 this.wall -= walls;
                 matchedCount+=9;
             }
         }
+        console.log(row,column)
+        row.forEach(i => {
+            for (var j = 0; j < this.column; j++){
+                this.boxRow[i][j] = 0;
+            }
+        });
+        column.forEach(j => {
+            for (var i = 0; i < this.row; i++){
+                this.boxRow[i][j] = 0;
+            }
+        });
         if (this.wall == 0){
             for (var i = 0; i < this.row; i++ ){
                 for (var j = 0; j < this.column; j++){
