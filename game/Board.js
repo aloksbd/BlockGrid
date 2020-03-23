@@ -60,6 +60,9 @@ class Board{
                     }
                 }
             }
+            if (shape.length == 3 && shape[0].length == 3){
+                place = true;
+            }
             if (place){
                 for (var i = 0; i < shape.length; i++ ){
                     for (var j = 0; j < shape[0].length; j++){
@@ -157,5 +160,48 @@ class Board{
             }
         }
         return matchedCount;
+    }
+    
+    canPlaceCurrentPiece(shape){
+        for (var y = 0; y <= this.row-shape.length; y++){
+            for (var x = 0; x <= this.column-shape[0].length; x++){
+                let canPlace = true;
+                for (var i = 0; i < shape.length; i++ ){
+                    for (var j = 0; j < shape[0].length; j++){
+                        if (shape[i][j] * this.boxRow[i+y][j+x] != 0){
+                            canPlace = false;
+                            break;
+                        }
+                    }
+                    if (!canPlace){
+                        break;
+                    }
+                }
+                if (canPlace){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    destroyBlocks(shape,mouseX,mouseY){
+        var destroyedBlocks = 0;
+        var x = Math.floor(mouseX/this.boxSize);
+        var y = Math.floor(mouseY/this.boxSize)-2;
+        if (this.canPlace){
+            for (var i = 0; i < shape.length; i++ ){
+                for (var j = 0; j < shape[0].length; j++){
+                    if (!this.boxRow[i+y][j+x] == 0){
+                        destroyedBlocks++;
+                    }
+                    if (this.boxRow[i+y][j+x] == 9){
+                        this.wall--;
+                    }
+                    this.boxRow[i+y][j+x] = 0;
+                }
+            }
+        }
+        return destroyedBlocks;
     }
 }

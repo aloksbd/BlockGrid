@@ -93,7 +93,7 @@ class Piece{
 
     makeCurrent(){
         this.boxSize = 25;
-        this.x = 287 - Math.floor(this.width() / 2);
+        this.x = 225 - Math.floor(this.width() / 2);
         this.y = 550 + 60 - Math.floor(this.height() / 2);
         this.next = false;
     }
