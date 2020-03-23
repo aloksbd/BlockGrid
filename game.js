@@ -43,6 +43,9 @@ document.onmouseup = function (mouse) {
         if (board.wall == 0){
             scoreBoard.score += scoreBoard.level * 5;
             scoreBoard.level++;
+            if (scoreBoard.level % LEVELGRID.length == 1){
+                scoreBoard.score += 1000;
+            }
             board.setGrid(LEVELGRID[(scoreBoard.level-1) % LEVELGRID.length]);
         }
         currentPiece.drop();
