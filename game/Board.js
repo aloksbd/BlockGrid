@@ -60,6 +60,9 @@ class Board{
                     }
                 }
             }
+            if (shape.length == 3 && shape[0].length == 3){
+                place = true;
+            }
             if (place){
                 for (var i = 0; i < shape.length; i++ ){
                     for (var j = 0; j < shape[0].length; j++){
@@ -186,15 +189,17 @@ class Board{
         var destroyedBlocks = 0;
         var x = Math.floor(mouseX/this.boxSize);
         var y = Math.floor(mouseY/this.boxSize)-2;
-        for (var i = 0; i < shape.length; i++ ){
-            for (var j = 0; j < shape[0].length; j++){
-                if (!this.boxRow[i+y][j+x] == 0){
-                    destroyedBlocks++;
+        if (this.canPlace){
+            for (var i = 0; i < shape.length; i++ ){
+                for (var j = 0; j < shape[0].length; j++){
+                    if (!this.boxRow[i+y][j+x] == 0){
+                        destroyedBlocks++;
+                    }
+                    if (this.boxRow[i+y][j+x] == 9){
+                        this.wall--;
+                    }
+                    this.boxRow[i+y][j+x] = 0;
                 }
-                if (this.boxRow[i+y][j+x] == 9){
-                    this.wall--;
-                }
-                this.boxRow[i+y][j+x] = 0;
             }
         }
         return destroyedBlocks;

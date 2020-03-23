@@ -111,5 +111,6 @@ document.onmousemove = function (mouse) {
         var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
         powerUp.picked(mouseX,mouseY);
         draw();
+        board.checkPlacebale(powerUp.shape,mouseX-powerUp.width()/2+powerUp.boxSize/2,mouseY-powerUp.height()/2+powerUp.boxSize/2);
     }
 }
