@@ -1,11 +1,11 @@
 class PowerUp{
-    x = 320;
-    y = 570;
+    x = 335;
+    y = 585;
     color;
     shape;
     ctx;
     isPicked = false;
-    boxSize = 80;
+    boxSize = 50;
 
     constructor(ctx) {
         this.ctx = ctx;
@@ -16,35 +16,37 @@ class PowerUp{
         this.shape = POWERUP[0];
         this.color = 'white';
     }
+
+    width(){
+        return (this.shape.length * this.boxSize);
+    }
+
+    height(){
+        return (this.shape.length * this.boxSize);
+    }
+
     draw(){
         this.ctx.fillStyle = this.color;
         this.ctx.strokeStyle = "#dddddd";
         if(this.isPicked){
             this.ctx.globalAlpha = 0.5;
-            this.shape.forEach((row, y) => {
-                row.forEach((value, x) => {
-                    if (value > 0) {
-                    this.ctx.fillRect(this.x + x * this.boxSize, this.y + y * this.boxSize, this.boxSize, this.boxSize);
-                    this.ctx.strokeRect(this.x + x * this.boxSize, this.y + y * this.boxSize, this.boxSize, this.boxSize);
-                    }
-                });
-            });
+        }
+        this.ctx.fillRect(this.x , this.y  , this.boxSize, this.boxSize);
+        this.ctx.strokeRect(this.x , this.y , this.boxSize, this.boxSize);
+        if(this.isPicked){
             this.ctx.globalAlpha = 1;
-        }else{
-                this.ctx.fillRect(this.x , this.y  , this.boxSize, this.boxSize);
-                this.ctx.strokeRect(this.x , this.y , this.boxSize, this.boxSize);
         }
     }
 
     picked(mouseX,mouseY){
-        this.boxSize = 50;
-        this.x = mouseX - this.width()/2;
-        this.y = mouseY - this.height()/2;
+        this.x = mouseX - this.boxSize/2;
+        this.y = mouseY - this.boxSize/2;
         this.isPicked = true;
     }
 
     drop(){
+        this.x = 320;
+        this.y = 570;
         this.isPicked = false;
-        this.makeCurrent();
     }
 }
