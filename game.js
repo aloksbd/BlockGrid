@@ -9,6 +9,8 @@ let piece = new Piece(ctx);
 let currentPiece = new Piece(ctx);
 currentPiece.makeCurrent();
 
+let powerUp = new PowerUp(ctx);
+
 let gameover = false;
 
 function draw(){
@@ -19,6 +21,7 @@ function draw(){
         spawnBoard.draw();
         piece.draw();
         currentPiece.draw();
+        powerUp.draw();
     }
 }
 draw();
@@ -32,6 +35,12 @@ document.onmousedown = function(mouse){
         mouseY < currentPiece.y + currentPiece.height()){
             currentPiece.picked(mouseX,mouseY);
     }
+    // if (mouseX > powerUp.x && 
+    //     mouseX < powerUp.x + powerUp.width() && 
+    //     mouseY > powerUp.y && 
+    //     mouseY < powerUp.y + powerUp.height()){
+    //         powerUp.picked(mouseX,mouseY);
+    // }
 }
 
 document.onmouseup = function (mouse) {
