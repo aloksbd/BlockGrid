@@ -1,4 +1,4 @@
-let scoreBoard = new ScoreBoard(ctx,boardX,boardY,boardWidth,boxSize*2);
+let scoreBoard = new ScoreBoard(ctx,boardX,boardY,boardWidth,boxSize*2,boxSize);
 
 let board = new Board(ctx,LEVELGRID[scoreBoard.level-1],boardX,boardY + boxSize*2,boxSize);
 
