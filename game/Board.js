@@ -9,9 +9,12 @@ class Board{
     canPlace = false;
     wall;
 
-    constructor(ctx,grid) {
+    constructor(ctx,grid,x,y,boxSize) {
         this.ctx = ctx;
         this.setGrid(grid);
+        this.x = x;
+        this.y = y;
+        this.boxSize = boxSize;
     }
 
     setGrid(grid){
@@ -69,10 +72,10 @@ class Board{
                         if (shape[i][j] != 0){
                             this.ctx.globalAlpha = 0.2;
                             this.ctx.fillStyle = "#ffffff";
-                            this.ctx.fillRect((j+x) * (this.boxSize),(i+y+2) * (this.boxSize),this.boxSize,this.boxSize);
+                            this.ctx.fillRect((j+x) * (this.boxSize) + this.x,(i+y) * (this.boxSize) + this.y,this.boxSize,this.boxSize);
                             this.ctx.globalAlpha = 1;
                             this.ctx.strokeStyle = "#ffffff";
-                            this.ctx.strokeRect((j+x) * (this.boxSize),((i+y+2)) * (this.boxSize),this.boxSize,this.boxSize);
+                            this.ctx.strokeRect((j+x) * (this.boxSize)+ this.x,((i+y)) * (this.boxSize)+ this.y,this.boxSize,this.boxSize);
                         }
                     }
                 }

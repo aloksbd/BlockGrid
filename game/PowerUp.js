@@ -1,14 +1,21 @@
 class PowerUp{
     x = 335;
     y = 585;
+    boardX;
+    boardY;
     color;
     shape;
     ctx;
     isPicked = false;
     boxSize = 50;
 
-    constructor(ctx) {
+    constructor(ctx,boardX,boardY,boxSize) {
         this.ctx = ctx;
+        this.boardX = boardX;
+        this.boardY = boardY;
+        this.boxSize = boxSize;
+        this.x = boardX + Math.floor((boxSize*9*335)/450);
+        this.y = boardY + boxSize*11 + Math.floor((boxSize*35)/50);
         this.setup();
     }
 
@@ -45,8 +52,8 @@ class PowerUp{
     }
 
     drop(){
-        this.x = 320;
-        this.y = 570;
+        this.x = boardX + Math.floor((boxSize*9*335)/450);
+        this.y = boardY + boxSize*11 + Math.floor((boxSize*35)/50);
         this.isPicked = false;
     }
 }

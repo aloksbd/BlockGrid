@@ -1,12 +1,12 @@
-let scoreBoard = new ScoreBoard(ctx);
+let scoreBoard = new ScoreBoard(ctx,boardX,boardY,boardWidth,boxSize*2,boxSize);
 
-let board = new Board(ctx,LEVELGRID[scoreBoard.level-1]);
+let board = new Board(ctx,LEVELGRID[scoreBoard.level-1],boardX,boardY + boxSize*2,boxSize);
 
-let spawnBoard = new SpawnBoard(ctx);
+let spawnBoard = new SpawnBoard(ctx,boardX,boardY + boxSize * 11,boardWidth,(boxSize*2) + (Math.floor((boxSize*2)/5)));
 
-let piece = new Piece(ctx);
+let piece = new Piece(ctx,boardX,boardY,boxSize);
 
-let currentPiece = new Piece(ctx);
+let currentPiece = new Piece(ctx,boardX,boardY,boxSize);
 currentPiece.makeCurrent();
 
 let powerUp = null;
@@ -55,7 +55,7 @@ document.onmouseup = function (mouse) {
     if (currentPiece.isPicked){
         var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
         var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
-        let matchedCount = board.placePiece(currentPiece.shape,mouseX-currentPiece.width()/2+currentPiece.boxSize/2,mouseY-currentPiece.height()/2+currentPiece.boxSize/2);
+        let matchedCount = board.placePiece(currentPiece.shape,mouseX-boardX-currentPiece.width()/2+currentPiece.boxSize/2,mouseY-boardY-currentPiece.height()/2+currentPiece.boxSize/2);
         scoreBoard.score += matchedCount;
         if (board.wall == 0){
             scoreBoard.score += scoreBoard.level * 5;
@@ -75,14 +75,14 @@ document.onmouseup = function (mouse) {
             if (gameover){
                 console.log("GAMEOVER");
             }
-            piece = new Piece(ctx);
+            piece = new Piece(ctx,boardX,boardY,boxSize);
         }
     }
     if (powerUp != null){
         if (powerUp.isPicked){
             var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
             var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
-            let destroyedBox = board.destroyBlocks(powerUp.shape,mouseX-powerUp.width()/2+powerUp.boxSize/2,mouseY-powerUp.height()/2+powerUp.boxSize/2);
+            let destroyedBox = board.destroyBlocks(powerUp.shape,mouseX-boardX-powerUp.width()/2+powerUp.boxSize/2,mouseY-boardY-powerUp.height()/2+powerUp.boxSize/2);
             scoreBoard.score += destroyedBox;
             powerUp.drop();
             console.log(board.wall);
@@ -106,7 +106,7 @@ document.onmouseup = function (mouse) {
         }
     }
     if (Math.floor(scoreBoard.score/200) > totalPowerUps){
-        powerUp = new PowerUp(ctx);
+        powerUp = new PowerUp(ctx,boardX,boardY,boxSize);
         totalPowerUps++;
     }
     draw();
@@ -118,7 +118,7 @@ document.onmousemove = function (mouse) {
         var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
         currentPiece.picked(mouseX,mouseY);
         draw();
-        board.checkPlacebale(currentPiece.shape,mouseX-currentPiece.width()/2+currentPiece.boxSize/2,mouseY-currentPiece.height()/2+currentPiece.boxSize/2);
+        board.checkPlacebale(currentPiece.shape,mouseX-boardX-currentPiece.width()/2+currentPiece.boxSize/2,mouseY-boardY-currentPiece.height()/2+currentPiece.boxSize/2);
     }
     if (powerUp != null){
         if (powerUp.isPicked){
@@ -126,7 +126,7 @@ document.onmousemove = function (mouse) {
             var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
             powerUp.picked(mouseX,mouseY);
             draw();
-            board.checkPlacebale(powerUp.shape,mouseX-powerUp.width()/2+powerUp.boxSize/2,mouseY-powerUp.height()/2+powerUp.boxSize/2);
+            board.checkPlacebale(powerUp.shape,mouseX-boardX-powerUp.width()/2+powerUp.boxSize/2,mouseY-boardY-powerUp.height()/2+powerUp.boxSize/2);
         }
     }
 }
