@@ -9,9 +9,12 @@ class Board{
     canPlace = false;
     wall;
 
-    constructor(ctx,grid) {
+    constructor(ctx,grid,x,y,boxSize) {
         this.ctx = ctx;
         this.setGrid(grid);
+        this.x = x;
+        this.y = y;
+        this.boxSize = boxSize;
     }
 
     setGrid(grid){

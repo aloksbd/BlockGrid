@@ -1,8 +1,8 @@
-let scoreBoard = new ScoreBoard(ctx);
+let scoreBoard = new ScoreBoard(ctx,boardX,boardY,boardWidth,boxSize*2);
 
-let board = new Board(ctx,LEVELGRID[scoreBoard.level-1]);
+let board = new Board(ctx,LEVELGRID[scoreBoard.level-1],boardX,boardY + boxSize*2,boxSize);
 
-let spawnBoard = new SpawnBoard(ctx);
+let spawnBoard = new SpawnBoard(ctx,boardX,boardY + boxSize * 11,boardWidth,(boxSize*2) + (Math.floor((boxSize*2)/5)));
 
 let piece = new Piece(ctx);
 
