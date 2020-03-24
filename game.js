@@ -11,6 +11,7 @@ currentPiece.makeCurrent();
 
 let powerUp = null;
 let totalPowerUps = 0;
+let powerUpScore = 0;
 
 let gameover = false;
 
@@ -105,7 +106,8 @@ document.onmouseup = function (mouse) {
             }
         }
     }
-    if (Math.floor(scoreBoard.score/200) > totalPowerUps){
+        powerUpScore = (Math.floor(scoreBoard.level/20) + 1) * 200;
+    if (Math.floor(scoreBoard.score/powerUpScore) > totalPowerUps){
         powerUp = new PowerUp(ctx,boardX,boardY,boxSize);
         totalPowerUps++;
     }
