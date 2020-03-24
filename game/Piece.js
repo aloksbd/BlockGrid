@@ -1,17 +1,24 @@
 class Piece{
+    boardX;
+    boardY;
     x;
     y;
     color;
     shape;
     ctx;
     typeId;
-    boxSize = 10;
+    boxSize;
+    blockSize = 10;
     next = true;
     current = false;
     isPicked = false;
 
-    constructor(ctx) {
+    constructor(ctx,boardX,boardY,boxSize) {
         this.ctx = ctx;
+        this.boardX = boardX;
+        this.boardY = boardY;
+        this.boxSize = boxSize;
+        this.blockSize = boxSize/5;
         this.setup();
     }
 
@@ -28,11 +35,11 @@ class Piece{
     }
 
     width(){
-        return (this.shape[0].length * this.boxSize)
+        return (this.shape[0].length * this.blockSize)
     }
 
     height(){
-        return (this.shape.length * this.boxSize)
+        return (this.shape.length * this.blockSize)
     }
 
     setup() {
@@ -40,8 +47,8 @@ class Piece{
         this.shape = SHAPES[this.typeId];
         this.color = COLORS[this.typeId];
         this.setRotation();
-        this.x = 82 - Math.floor(this.width() / 2);
-        this.y = 550 + 60 - Math.floor(this.height() / 2);
+        this.x = boardX + Math.floor((this.boxSize*82)/50) - Math.floor(this.width() / 2);
+        this.y = boardY + this.boxSize*11 + Math.floor((this.boxSize*60)/50) - Math.floor(this.height() / 2);
     }
 
     setRotation(){
@@ -74,8 +81,8 @@ class Piece{
         this.shape.forEach((row, y) => {
             row.forEach((value, x) => {
                 if (value > 0) {
-                this.ctx.fillRect(this.x + x * this.boxSize, this.y + y * this.boxSize, this.boxSize, this.boxSize);
-                this.ctx.strokeRect(this.x + x * this.boxSize, this.y + y * this.boxSize, this.boxSize, this.boxSize);
+                this.ctx.fillRect(this.x + x * this.blockSize, this.y + y * this.blockSize, this.blockSize, this.blockSize);
+                this.ctx.strokeRect(this.x + x * this.blockSize, this.y + y * this.blockSize, this.blockSize, this.blockSize);
                 }
             });
         });
@@ -87,19 +94,22 @@ class Piece{
     drawBgBox(){
         this.ctx.fillStyle = "#000000";
         this.ctx.globalAlpha = 0.3;
-        this.ctx.fillRect(42,570,80,80);
+        let x = this.boardX + Math.floor((this.boxSize*42)/50);
+        let y = this.boardY + this.boxSize*11 + Math.floor((this.boxSize*2)/5);
+        let size = Math.floor((this.boxSize*8)/5);
+        this.ctx.fillRect(x,y,size,size);
         this.ctx.globalAlpha = 1;
     }
 
     makeCurrent(){
-        this.boxSize = 25;
-        this.x = 225 - Math.floor(this.width() / 2);
-        this.y = 550 + 60 - Math.floor(this.height() / 2);
+        this.blockSize = Math.floor(this.boxSize/2);
+        this.x = boardX + Math.floor((this.boxSize*9)/2) - Math.floor(this.width() / 2);
+        this.y =  this.boardY +  this.boxSize*11 + Math.floor((this.boxSize*60)/50) - Math.floor(this.height() / 2);
         this.next = false;
     }
 
     picked(mouseX,mouseY){
-        this.boxSize = 50;
+        this.blockSize = this.boxSize;
         this.x = mouseX - this.width()/2;
         this.y = mouseY - this.height()/2;
         this.isPicked = true;

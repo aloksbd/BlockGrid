@@ -4,9 +4,9 @@ let board = new Board(ctx,LEVELGRID[scoreBoard.level-1],boardX,boardY + boxSize*
 
 let spawnBoard = new SpawnBoard(ctx,boardX,boardY + boxSize * 11,boardWidth,(boxSize*2) + (Math.floor((boxSize*2)/5)));
 
-let piece = new Piece(ctx);
+let piece = new Piece(ctx,boardX,boardY,boxSize);
 
-let currentPiece = new Piece(ctx);
+let currentPiece = new Piece(ctx,boardX,boardY,boxSize);
 currentPiece.makeCurrent();
 
 let powerUp = null;
@@ -75,7 +75,7 @@ document.onmouseup = function (mouse) {
             if (gameover){
                 console.log("GAMEOVER");
             }
-            piece = new Piece(ctx);
+            piece = new Piece(ctx,boardX,boardY,boxSize);
         }
     }
     if (powerUp != null){
