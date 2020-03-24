@@ -82,7 +82,7 @@ document.onmouseup = function (mouse) {
         if (powerUp.isPicked){
             var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
             var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
-            let destroyedBox = board.destroyBlocks(powerUp.shape,mouseX-powerUp.width()/2+powerUp.boxSize/2,mouseY-powerUp.height()/2+powerUp.boxSize/2);
+            let destroyedBox = board.destroyBlocks(powerUp.shape,mouseX-boardX-powerUp.width()/2+powerUp.boxSize/2,mouseY-boardY-powerUp.height()/2+powerUp.boxSize/2);
             scoreBoard.score += destroyedBox;
             powerUp.drop();
             console.log(board.wall);
@@ -106,7 +106,7 @@ document.onmouseup = function (mouse) {
         }
     }
     if (Math.floor(scoreBoard.score/200) > totalPowerUps){
-        powerUp = new PowerUp(ctx);
+        powerUp = new PowerUp(ctx,boardX,boardY,boxSize);
         totalPowerUps++;
     }
     draw();
@@ -126,7 +126,7 @@ document.onmousemove = function (mouse) {
             var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
             powerUp.picked(mouseX,mouseY);
             draw();
-            board.checkPlacebale(powerUp.shape,mouseX-powerUp.width()/2+powerUp.boxSize/2,mouseY-powerUp.height()/2+powerUp.boxSize/2);
+            board.checkPlacebale(powerUp.shape,mouseX-boardX-powerUp.width()/2+powerUp.boxSize/2,mouseY-boardY-powerUp.height()/2+powerUp.boxSize/2);
         }
     }
 }
