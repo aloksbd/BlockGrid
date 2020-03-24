@@ -6,9 +6,15 @@ class ScoreBoard{
     height = 100;
     score = 0;
     level = 1;
+    fontSize;
 
-    constructor(ctx){
+    constructor(ctx,x,y,width,height,fontSize){
         this.ctx = ctx;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.fontSize = fontSize;
     }
 
     draw(){
@@ -21,25 +27,25 @@ class ScoreBoard{
     }
 
     drawScoreLabel(){
-        let x = 35;
-        let y = 35;
+        let x = this.x + Math.floor((this.fontSize*35)/50);
+        let y = this.y + Math.floor((this.fontSize*35)/50);
         this.ctx.fillStyle = "#dd4499";
-        ctx.font = 30 + "px Arial";
-        this.ctx.fillText("SCORE",x,y,150);
-        ctx.font = 50 + "px Arial";
-        this.ctx.fillText(this.score,x,y + 50,150);
+        ctx.font = Math.floor((this.fontSize*3)/5) + "px Arial";
+        this.ctx.fillText("SCORE",x,y);
+        ctx.font = this.fontSize + "px Arial";
+        this.ctx.fillText(this.score,x,y + this.fontSize);
     }
 
     drawLevelLabel(){
-        let x = 320;
-        let y = 35;
+        let x = this.x + Math.floor((this.width*32)/45);
+        let y = this.y + Math.floor((this.fontSize*35)/50);
         this.ctx.fillStyle = "#dd4499";
-        ctx.font = 30 + "px Arial";
-        this.ctx.fillText("LEVEL",x,y,150);
-        ctx.font = 50 + "px Arial";
+        ctx.font = Math.floor((this.fontSize*3)/5) + "px Arial";
+        this.ctx.fillText("LEVEL",x,y);
+        ctx.font = this.fontSize + "px Arial";
         if (this.level > 9){
-            x -= 25;
+            x -= Math.floor(this.fontSize/2);
         }
-        this.ctx.fillText(this.level,x+65,y + 50,150);
+        this.ctx.fillText(this.level,x+Math.floor((this.fontSize*65)/50),y + this.fontSize);
     }
 }
