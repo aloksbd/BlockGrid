@@ -87,8 +87,11 @@ class Piece{
                 if (value > 0) {
                     let rawX = x * this.blockSize;
                     let rawY = y * this.blockSize;
-                    this.ctx.fillRect(this.x + rawX, this.y + rawY, this.blockSize, this.blockSize);
-                    this.ctx.strokeRect(this.x + rawX, this.y + rawY, this.blockSize, this.blockSize);
+                    // this.ctx.fillRect(this.x + rawX, this.y + rawY, this.blockSize, this.blockSize);
+                    // this.ctx.strokeRect(this.x + rawX, this.y + rawY, this.blockSize, this.blockSize);
+                    let img = IMAGES[this.typeId];
+                    ctx.drawImage(img, this.x + rawX, this.y + rawY, this.blockSize, this.blockSize);
+                
                 }
             });
         });
