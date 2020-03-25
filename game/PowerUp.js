@@ -46,8 +46,10 @@ class PowerUp{
         if(this.isPicked){
             this.ctx.globalAlpha = 0.5;
         }
-        this.ctx.fillRect(this.x , this.y  , this.boxSize, this.boxSize);
-        this.ctx.strokeRect(this.x , this.y , this.boxSize, this.boxSize);
+        // this.ctx.fillRect(this.x , this.y  , this.boxSize, this.boxSize);
+        // this.ctx.strokeRect(this.x , this.y , this.boxSize, this.boxSize);
+                    let img = hammer;
+                    ctx.drawImage(img, this.x , this.y , this.boxSize, this.boxSize);
         if(this.isPicked){
             this.ctx.globalAlpha = 1;
         }

@@ -37,15 +37,18 @@ class Board{
     draw(){
         for (var i = 0; i < this.numberOfRows; i++ ){
             for (var j = 0; j < this.numberOfColumns; j++){
+                let img = boardBlock;
                 if (this.grid[i][j] == 0){
-                    this.ctx.fillStyle = "#777777";
-                    this.ctx.strokeStyle = "#222222";
+                    // this.ctx.fillStyle = "#777777";
+                    // this.ctx.strokeStyle = "#222222";
                 }else{
-                    this.ctx.fillStyle = COLORS[this.grid[i][j]];
-                    this.ctx.strokeStyle = "#dddddd";
+                    // this.ctx.fillStyle = COLORS[this.grid[i][j]];
+                    // this.ctx.strokeStyle = "#dddddd";
+                    img = IMAGES[this.grid[i][j]];
                 }
-                this.ctx.fillRect(j * (this.boxSize) + this.x,i * (this.boxSize) + this.y,this.boxSize,this.boxSize);
-                this.ctx.strokeRect(j * (this.boxSize) + this.x,i * (this.boxSize) + this.y,this.boxSize,this.boxSize);
+                // ctx.drawImage(, 20, 20, img_width, img_height);
+                ctx.drawImage(img, j * (this.boxSize) + this.x,i * (this.boxSize) + this.y,this.boxSize,this.boxSize);
+                // this.ctx.strokeRect(img, j * (this.boxSize) + this.x,i * (this.boxSize) + this.y,this.boxSize,this.boxSize);
             }
         }
     }

@@ -150,7 +150,7 @@ function currentLevelGrid(){
 }
 
 function createPowerUp(){
-    powerUpScore = (Math.floor(scoreBoard.level/20) + 1) * 200;
+    powerUpScore = (Math.floor(scoreBoard.level/20) + 1) * 20;
     if (Math.floor(scoreBoard.score/powerUpScore) > totalPowerUps){
         powerUp = new PowerUp(ctx,boardX,boardY,boxSize);
         totalPowerUps++;
