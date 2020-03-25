@@ -42,6 +42,7 @@ function mouseXY(mouse){
 }
 
 document.onmousedown = function(mouse){
+    bgMusic.play();
     let {mouseX,mouseY} = mouseXY(mouse);
     if (!gameover){
         if (mouseX > currentPiece.x && 
@@ -69,14 +70,24 @@ document.onmouseup = function (mouse) {
         scoreBoard.score += matchedCount;
         checkLevelClear();
         currentPiece.drop();
+        if (matchedCount > 0){
+            matchSound.play();
+        }
 
         if (board.canPlace){
+            placeSound.play();
             scoreBoard.score += currentPiece.score();
             currentPiece = piece;
             currentPiece.makeCurrent();
             draw();
             gameover = !board.canPlaceCurrentPiece(currentPiece.shape);
+            if (gameover){
+                bgMusic.pause();
+                gameoverSound.play();
+            }
             piece = new Piece(ctx,boardX,boardY,boxSize);
+        }else{
+            denySound.play();
         }
     }
     if (powerUp != null){
@@ -85,11 +96,20 @@ document.onmouseup = function (mouse) {
             scoreBoard.score += destroyedBox;
             powerUp.drop();
             checkLevelClear();
+            if (destroyedBox > 0){
+                matchSound.play();
+            }
 
             if (board.canPlace){
                 draw();
                 gameover = !board.canPlaceCurrentPiece(currentPiece.shape);
+                if (gameover){
+                    bgMusic.pause();
+                    gameoverSound.play();
+                }
                 powerUp = null;
+            }else{
+                denySound.play();
             }
         }
     }
@@ -115,6 +135,7 @@ document.onmousemove = function (mouse) {
 
 function checkLevelClear(){
     if (board.wall == 0){
+        levelClearedSound.play();
         scoreBoard.score += scoreBoard.level * 5;
         scoreBoard.level++;
         if (scoreBoard.level % LEVELGRID.length == 1){
@@ -129,7 +150,7 @@ function currentLevelGrid(){
 }
 
 function createPowerUp(){
-    powerUpScore = (Math.floor(scoreBoard.level/20) + 1) * 10;
+    powerUpScore = (Math.floor(scoreBoard.level/20) + 1) * 200;
     if (Math.floor(scoreBoard.score/powerUpScore) > totalPowerUps){
         powerUp = new PowerUp(ctx,boardX,boardY,boxSize);
         totalPowerUps++;
