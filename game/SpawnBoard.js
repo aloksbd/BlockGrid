@@ -1,16 +1,16 @@
 class SpawnBoard{
     ctx;
-    x = 0;
-    y = 550;
-    width = 450;
-    height = 120;
+    x;
+    y;
+    width;
+    height;
 
     constructor(ctx,x,y,width,height){
         this.ctx = ctx;
         this.x = x;
         this.y = y;
-        this.width = width,
-        this.height = height
+        this.width = width;
+        this.height = height;
     }
     
     draw(){
