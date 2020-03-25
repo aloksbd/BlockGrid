@@ -19,7 +19,8 @@ let boardHeight = Math.floor((67 * boardWidth)/45);
 let boardX = Math.floor(width/2) - Math.floor(boardWidth/2);
 let boardY = Math.floor(height/2) - Math.floor(boardHeight/2);
 
-let boxSize = boardWidth/9;
+let gridSize = 9;
+let boxSize = boardWidth/gridSize;
 let fontSize = boxSize;
 
 function drawCanvas(){
