@@ -1,20 +1,26 @@
 class ScoreBoard{
     ctx;
-    x = 0;
-    y = 0;
-    width = 450;
-    height = 100;
+    x;
+    y;
+    width;
+    height;
     score = 0;
     level = 1;
-    fontSize;
+    valueFontSize;
+    titleFontSize;
+    font;
+    fontColor;
 
-    constructor(ctx,x,y,width,height,fontSize){
+    constructor(ctx,x,y,width,height,valueFontSize){
         this.ctx = ctx;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.fontSize = fontSize;
+        this.valueFontSize = valueFontSize;
+        this.titleFontSize = Math.floor((valueFontSize*3)/5);
+        this.font = 'Arial';
+        this.fontColor = '#dd4499';
     }
 
     draw(){
@@ -27,25 +33,26 @@ class ScoreBoard{
     }
 
     drawScoreLabel(){
-        let x = this.x + Math.floor((this.fontSize*35)/50);
-        let y = this.y + Math.floor((this.fontSize*35)/50);
-        this.ctx.fillStyle = "#dd4499";
-        ctx.font = Math.floor((this.fontSize*3)/5) + "px Arial";
-        this.ctx.fillText("SCORE",x,y);
-        ctx.font = this.fontSize + "px Arial";
-        this.ctx.fillText(this.score,x,y + this.fontSize);
+        this.drawLabel('SCORE',this.score,'left');
     }
 
     drawLevelLabel(){
-        let x = this.x + Math.floor((this.width*32)/45);
-        let y = this.y + Math.floor((this.fontSize*35)/50);
-        this.ctx.fillStyle = "#dd4499";
-        ctx.font = Math.floor((this.fontSize*3)/5) + "px Arial";
-        this.ctx.fillText("LEVEL",x,y);
-        ctx.font = this.fontSize + "px Arial";
-        if (this.level > 9){
-            x -= Math.floor(this.fontSize/2);
+        this.drawLabel('LEVEL',this.level,'right');
+    }
+
+    drawLabel(title, value, align){
+        let x = this.x + Math.floor((this.valueFontSize*35)/50); 
+        let y = this.y + Math.floor((this.valueFontSize*35)/50);
+        if (align == 'right'){
+            x = this.x + this.width - Math.floor((this.valueFontSize*35)/50);
         }
-        this.ctx.fillText(this.level,x+Math.floor((this.fontSize*65)/50),y + this.fontSize);
+
+        this.ctx.textAlign = align;
+        this.ctx.fillStyle = this.fontColor;
+        ctx.font = this.titleFontSize + "px " + this.font;
+        this.ctx.fillText(title,x,y);
+        
+        ctx.font = this.valueFontSize + "px " + this.font;
+        this.ctx.fillText(value,x,y + this.valueFontSize);
     }
 }

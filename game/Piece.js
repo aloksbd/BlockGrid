@@ -1,14 +1,14 @@
 class Piece{
+    ctx;
     boardX;
     boardY;
     x;
     y;
     color;
     shape;
-    ctx;
     typeId;
     boxSize;
-    blockSize = 10;
+    blockSize;
     next = true;
     current = false;
     isPicked = false;
@@ -19,7 +19,8 @@ class Piece{
         this.boardY = boardY;
         this.boxSize = boxSize;
         this.blockSize = boxSize/5;
-        this.setup();
+        this.setupShape();
+        this.setupPosition();
     }
 
     score(){
@@ -42,13 +43,19 @@ class Piece{
         return (this.shape.length * this.blockSize)
     }
 
-    setup() {
+    setupShape() {
         this.typeId = this.randomTypeId();
         this.shape = SHAPES[this.typeId];
         this.color = COLORS[this.typeId];
         this.setRotation();
-        this.x = boardX + Math.floor((this.boxSize*82)/50) - Math.floor(this.width() / 2);
-        this.y = boardY + this.boxSize*11 + Math.floor((this.boxSize*60)/50) - Math.floor(this.height() / 2);
+    }
+
+    setupPosition(){
+        let spawnX = Math.floor((this.boxSize*82)/50) - Math.floor(this.width()/2);
+        let spawnBoardY = this.boxSize*11;
+        let spawnY = spawnBoardY + Math.floor((this.boxSize*60)/50) - Math.floor(this.height()/2);
+        this.x = boardX + spawnX;
+        this.y = boardY + spawnY;
     }
 
     setRotation(){
@@ -58,7 +65,7 @@ class Piece{
         }
     }
 
-    rotateLeft(array) {
+    rotateLeft() {
         var result = [];
         this.shape.forEach(function (a, i, aa) {
             a.forEach(function (b, j, bb) {
@@ -70,9 +77,6 @@ class Piece{
     }
 
     draw() {
-        if (this.next){
-            this.drawBgBox();
-        }
         this.ctx.fillStyle = this.color;
         this.ctx.strokeStyle = "#dddddd";
         if(this.isPicked){
@@ -81,8 +85,10 @@ class Piece{
         this.shape.forEach((row, y) => {
             row.forEach((value, x) => {
                 if (value > 0) {
-                this.ctx.fillRect(this.x + x * this.blockSize, this.y + y * this.blockSize, this.blockSize, this.blockSize);
-                this.ctx.strokeRect(this.x + x * this.blockSize, this.y + y * this.blockSize, this.blockSize, this.blockSize);
+                    let rawX = x * this.blockSize;
+                    let rawY = y * this.blockSize;
+                    this.ctx.fillRect(this.x + rawX, this.y + rawY, this.blockSize, this.blockSize);
+                    this.ctx.strokeRect(this.x + rawX, this.y + rawY, this.blockSize, this.blockSize);
                 }
             });
         });
@@ -91,20 +97,13 @@ class Piece{
         }
     }
 
-    drawBgBox(){
-        this.ctx.fillStyle = "#000000";
-        this.ctx.globalAlpha = 0.3;
-        let x = this.boardX + Math.floor((this.boxSize*42)/50);
-        let y = this.boardY + this.boxSize*11 + Math.floor((this.boxSize*2)/5);
-        let size = Math.floor((this.boxSize*8)/5);
-        this.ctx.fillRect(x,y,size,size);
-        this.ctx.globalAlpha = 1;
-    }
-
     makeCurrent(){
         this.blockSize = Math.floor(this.boxSize/2);
-        this.x = boardX + Math.floor((this.boxSize*9)/2) - Math.floor(this.width() / 2);
-        this.y =  this.boardY +  this.boxSize*11 + Math.floor((this.boxSize*60)/50) - Math.floor(this.height() / 2);
+        let rawX = Math.floor((this.boxSize*9)/2) - Math.floor(this.width() / 2);
+        let spawnBoardY = this.boxSize*11;
+        let rawY = spawnBoardY + Math.floor((this.boxSize*60)/50) - Math.floor(this.height()/2);
+        this.x = this.boardX + rawX;
+        this.y = this.boardY + rawY;
         this.next = false;
     }
 
