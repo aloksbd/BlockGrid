@@ -11,7 +11,6 @@ function imageInPath(path) {
         if (totalImages == loadedImages){
             loadComplete = true;
         }
-        console.log(totalImages,loadedImages,loadComplete)
     }
     return img
 }

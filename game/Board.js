@@ -122,7 +122,6 @@ class Board{
         let matchedLine = [];
         for (var i = 0; i < length; i++ ){
             var match = true;
-            let walls = 0;
             for (var j = 0; j < this.numberOfColumns; j++){
                 let row = i+initialPosition;
                 let column = j;
@@ -134,29 +133,34 @@ class Board{
                     match = false;
                     break;
                 }
-                if (this.grid[row][column] == 9){
-                    walls++;
-                }
             }
             if (match){
                 matchedLine.push(i+initialPosition);
-                this.wall -= walls;
+                // this.wall -= walls;
             }
         }
         return matchedLine;
     }
 
     removeBlocksFrom(row,column){
+        let walls = 0;
         row.forEach(i => {
             for (var j = 0; j < this.numberOfColumns; j++){
+                if (this.grid[i][j] == 9){
+                    walls++;
+                }
                 this.grid[i][j] = 0;
             }
         });
         column.forEach(j => {
             for (var i = 0; i < this.numberOfRows; i++){
+                if (this.grid[i][j] == 9){
+                    walls++;
+                }
                 this.grid[i][j] = 0;
             }
         });
+        this.wall -= walls;
     }
 
     levelCleared(){

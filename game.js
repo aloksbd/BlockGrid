@@ -16,9 +16,7 @@ function showHome(){
     drawCanvas();
     if (!loadComplete){
         setTimeout(showHome, 1000/30);
-        console.log("not loaded");
     }else{
-        console.log("loaded");
     ctx.drawImage(icon, width/2 - boxSize, height/2 - boxSize*3, boxSize*2, boxSize*2);
     ctx.drawImage(playImage, width/2 - boxSize*3/4, height/2 - boxSize*3/8, boxSize*3/2, boxSize*3/2);
     ctx.drawImage(audioOnImage, width/2 + boxSize, height/2, boxSize, boxSize);
