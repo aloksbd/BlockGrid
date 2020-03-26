@@ -1,3 +1,13 @@
+const AUDIO = [
+    bgMusic,
+    levelClearedSound,
+    matchSound,
+    placeSound,
+    denySound,
+    gameoverSound
+  ];
+Object.freeze(AUDIO);
+
 const COLORS = [
     'none',
     'cyan',

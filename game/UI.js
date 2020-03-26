@@ -27,8 +27,9 @@ let spawnBoardY = boardY + boxSize * 11;
 let spawnBoardHeight = boxSize*2 + Math.floor((boxSize*2)/5);
 
 function drawCanvas(){
-    ctx.fillStyle = "#44dd99";
-    ctx.fillRect(0,0,width,height);
+    // ctx.fillStyle = "#44dd99";
+    // ctx.fillRect(0,0,width,height);
+    ctx.drawImage(backgroundImage, 0,0,width,height);
     document.body.style.margin = 0;
     document.body.style.padding = 0;
     document.body.style.overflow = 'hidden';

@@ -6,3 +6,4 @@ let matchSound = new Audio("assets/match.wav");
 let levelClearedSound = new Audio("assets/match.wav");
 let gameoverSound = new Audio("assets/deny.wav");
 
+let muted = false;

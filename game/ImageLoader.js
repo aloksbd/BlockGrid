@@ -1,21 +1,28 @@
-let totalImages = 0
-let loadedImages = 0
+let totalImages = 0;
+let loadedImages = 0;
+let loadComplete = false;
 
 function imageInPath(path) {
     let img = new Image();
     img.src = path;
     totalImages++;
     img.onload = function() {
-        img_width = img.width;
-        img_height = img.height;
-    
-        ctx.drawImage(img, 20, 20, img_width, img_height);
-        console.log("asdasd");
+        loadedImages++;
+        if (totalImages == loadedImages){
+            loadComplete = true;
+        }
+        console.log(totalImages,loadedImages,loadComplete)
     }
     return img
 }
 
 let icon = imageInPath("assets/icon.png");
+let playImage = imageInPath("assets/play.png");
+let audioOnImage = imageInPath("assets/audio.png");
+let muteImage = imageInPath("assets/mute.png");
+let leaderBoardImage = imageInPath("assets/leaderboard.png");
+
+let backgroundImage = imageInPath("assets/background.png");
 
 let boardBlock = imageInPath("assets/board.png");
 
