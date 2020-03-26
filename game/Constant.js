@@ -1,3 +1,13 @@
+const AUDIO = [
+    bgMusic,
+    levelClearedSound,
+    matchSound,
+    placeSound,
+    denySound,
+    gameoverSound
+  ];
+Object.freeze(AUDIO);
+
 const COLORS = [
     'none',
     'cyan',
@@ -11,6 +21,21 @@ const COLORS = [
     'black'
   ];
 Object.freeze(COLORS);
+
+const IMAGES = [
+    icon,
+    block1,
+    block2,
+    block3,
+    block4,
+    block5,
+    block6,
+    block7,
+    block8,
+    block9,
+    hammer,
+  ];
+Object.freeze(IMAGES);
 
 const POWERUP = [
     [[10,10,10,],[10,10,10],[10,10,10]],

@@ -1,31 +1,39 @@
 class PowerUp{
-    x = 335;
-    y = 585;
+    x;
+    y;
     boardX;
     boardY;
     color;
     shape;
     ctx;
     isPicked = false;
-    boxSize = 50;
+    boxSize;
 
     constructor(ctx,boardX,boardY,boxSize) {
         this.ctx = ctx;
         this.boardX = boardX;
         this.boardY = boardY;
         this.boxSize = boxSize;
-        this.x = boardX + Math.floor((boxSize*9*335)/450);
-        this.y = boardY + boxSize*11 + Math.floor((boxSize*35)/50);
-        this.setup();
+        this.setupShape();
+        this.setupPosition();
     }
 
-    setup() {
+    setupPosition(){
+        let boardWidth = this.boxSize*9;
+        let spawnBoardY = this.boxSize*11;
+        let rawX = Math.floor((boardWidth*335)/450);
+        let rawY = spawnBoardY + Math.floor((boxSize*35)/50);
+        this.x = boardX + rawX;
+        this.y = boardY + rawY;
+    }
+
+    setupShape() {
         this.shape = POWERUP[0];
         this.color = 'white';
     }
 
     width(){
-        return (this.shape.length * this.boxSize);
+        return (this.shape[0].length * this.boxSize);
     }
 
     height(){
@@ -38,8 +46,10 @@ class PowerUp{
         if(this.isPicked){
             this.ctx.globalAlpha = 0.5;
         }
-        this.ctx.fillRect(this.x , this.y  , this.boxSize, this.boxSize);
-        this.ctx.strokeRect(this.x , this.y , this.boxSize, this.boxSize);
+        // this.ctx.fillRect(this.x , this.y  , this.boxSize, this.boxSize);
+        // this.ctx.strokeRect(this.x , this.y , this.boxSize, this.boxSize);
+                    let img = hammer;
+                    ctx.drawImage(img, this.x , this.y , this.boxSize, this.boxSize);
         if(this.isPicked){
             this.ctx.globalAlpha = 1;
         }
@@ -52,8 +62,7 @@ class PowerUp{
     }
 
     drop(){
-        this.x = boardX + Math.floor((boxSize*9*335)/450);
-        this.y = boardY + boxSize*11 + Math.floor((boxSize*35)/50);
+        this.setupPosition();
         this.isPicked = false;
     }
 }
