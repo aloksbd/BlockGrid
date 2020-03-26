@@ -99,6 +99,7 @@ document.onmousedown = function(mouse){
         clickedInHome(mouseX,mouseY);
         return;
     }
+    board.canPlace = false;
     if (!gameover){
         if (mouseX > currentPiece.x && 
             mouseX < currentPiece.x + currentPiece.width() && 
